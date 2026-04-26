@@ -1,5 +1,5 @@
 import { franc } from "franc";
-import { fetchTranscript } from "youtube-transcript/dist/youtube-transcript.esm.js";
+import youtubeTranscriptApi from "youtube-transcript-api";
 
 import { env } from "../config/env.js";
 import { AppError } from "../middleware/error.middleware.js";
@@ -8,17 +8,17 @@ import { createChunkHash } from "../utils/chunkHash.js";
 import { formatTimestampRange } from "../utils/timestamps.js";
 
 export class TranscriptService {
-  async fetchTranscript(youtubeId: string): Promise<VideoTranscript> {
+  async getTranscript(youtubeId: string): Promise<VideoTranscript> {
     try {
-      const rawEntries = await fetchTranscript(youtubeId);
+      const rawEntries = await youtubeTranscriptApi.getTranscript(youtubeId);
 
       const entries = rawEntries
-        .map((entry) => ({
+        .map((entry:any) => ({
           text: entry.text.replace(/\s+/g, " ").trim(),
           duration: entry.duration ?? 0,
           offset: entry.offset ?? 0
         }))
-        .filter((entry) => entry.text.length > 0);
+        .filter((entry:any) => entry.text.length > 0);
 
       if (entries.length === 0) {
         throw new AppError("This video does not have a usable transcript.", 400);
@@ -26,7 +26,7 @@ export class TranscriptService {
 
       const sampleText = entries
         .slice(0, 40)
-        .map((entry) => entry.text)
+        .map((entry:any) => entry.text)
         .join(" ");
 
       const detectedLanguage = this.detectLanguage(sampleText);

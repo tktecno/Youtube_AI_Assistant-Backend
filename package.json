@@ -18,7 +18,7 @@
     "franc": "^6.2.0",
     "helmet": "^8.1.0",
     "morgan": "^1.10.0",
-    "youtube-transcript": "^1.2.1",
+    "youtube-transcript-api": "^3.0.6",
     "zod": "^3.25.28"
   },
   "devDependencies": {
@@ -30,4 +30,3 @@
     "typescript": "^5.9.3"
   }
 }
-
