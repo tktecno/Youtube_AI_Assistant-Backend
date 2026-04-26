@@ -8,7 +8,7 @@ import { createChunkHash } from "../utils/chunkHash.js";
 import { formatTimestampRange } from "../utils/timestamps.js";
 
 export class TranscriptService {
-  async getTranscript(youtubeId: string): Promise<VideoTranscript> {
+  async fetchTranscript(youtubeId: string): Promise<VideoTranscript> {
     try {
       const rawEntries = await youtubeTranscriptApi.getTranscript(youtubeId);
 
