@@ -1,5 +1,5 @@
 import { franc } from "franc";
-import {getTranscript} from "youtube-transcript-api";
+const youtubeTranscriptApi = await import("youtube-transcript-api");
 
 import { env } from "../config/env.js";
 import { AppError } from "../middleware/error.middleware.js";
@@ -10,7 +10,7 @@ import { formatTimestampRange } from "../utils/timestamps.js";
 export class TranscriptService {
   async fetchTranscript(youtubeId: string): Promise<VideoTranscript> {
     try {
-      const rawEntries = await getTranscript(youtubeId);
+      const rawEntries = await youtubeTranscriptApi.default.getTranscript(youtubeId);
 
       const entries = rawEntries
         .map((entry:any) => ({
