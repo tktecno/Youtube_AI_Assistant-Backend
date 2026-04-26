@@ -49,11 +49,13 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://your-vercel-domain.vercel.app"
+      "https://youtube-ai-assistant-frontend.vercel.app"
     ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true
   })
 );
+app.options("*", cors());
 app.use(helmet());
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan(env.NODE_ENV === "production" ? "combined" : "dev"));
